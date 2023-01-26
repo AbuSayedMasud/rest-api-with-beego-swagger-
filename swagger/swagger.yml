@@ -1,0 +1,173 @@
+swagger: "2.0"
+info:
+  title: beego Test API
+  description: |
+    beego has a very cool tools to autogenerate documents for your API
+  version: 1.0.0
+  termsOfService: http://beego.me/
+  contact:
+    email: astaxie@gmail.com
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+basePath: /v1
+paths:
+  /Users/:
+    get:
+      tags:
+      - Users
+      description: |-
+        get Users
+        <br>
+      operationId: UsersController.Get All
+      responses:
+        "200":
+          description: ""
+          schema:
+            $ref: '#/definitions/models.Users'
+        "403":
+          description: ""
+    post:
+      tags:
+      - Users
+      description: |-
+        create Users
+        <br>
+      operationId: UsersController.Post
+      parameters:
+      - in: body
+        name: body
+        description: body for Users content
+        required: true
+        schema:
+          $ref: '#/definitions/models.Users'
+      responses:
+        "201":
+          description: '{int} models.Users'
+        "403":
+          description: body is empty
+  /Users/{id}:
+    get:
+      tags:
+      - Users
+      description: |-
+        get Users by id
+        <br>
+      operationId: UsersController.Get One
+      parameters:
+      - in: path
+        name: id
+        description: The key for staticblock
+        required: true
+        type: string
+      responses:
+        "200":
+          description: ""
+          schema:
+            $ref: '#/definitions/models.Users'
+        "403":
+          description: :id is empty
+    put:
+      tags:
+      - Users
+      description: |-
+        update the Users
+        <br>
+      operationId: UsersController.Put
+      parameters:
+      - in: path
+        name: id
+        description: The id you want to update
+        required: true
+        type: string
+      - in: body
+        name: body
+        description: body for Users content
+        required: true
+        schema:
+          $ref: '#/definitions/models.Users'
+      responses:
+        "200":
+          description: ""
+          schema:
+            $ref: '#/definitions/models.Users'
+        "403":
+          description: :id is not int
+    patch:
+      tags:
+        - Users
+      description: |-
+          update the Users
+          <br>
+      operationId: UsersController.Patch
+      parameters:
+        - name: Id
+          in: path
+          required: true
+          type: string
+          format: Id
+          description: The Id of a specific user
+        - name: Update
+          in: body
+          required: true
+          schema:
+            $ref: "#/definitions/PatchRequest"
+      responses:
+        "200":
+          description: ""
+          schema:
+            $ref: '#/definitions/models.Users'
+        "403":
+            description: :id is not int
+    delete:
+      tags:
+      - Users
+      description: |-
+        delete the Users
+        <br>
+      operationId: UsersController.Delete
+      parameters:
+      - in: path
+        name: id
+        description: The id you want to delete
+        required: true
+        type: string
+      responses:
+        "200":
+          description: '{string} delete success!'
+        "403":
+          description: id is empty
+definitions:
+  models.Users:
+    title: Users
+    type: object
+    properties:
+      Age:
+        type: integer
+        format: int64
+      Email:
+        type: string
+      Id:
+        type: integer
+        format: int64
+      Image:
+        type: string
+      Name:
+        type: string
+  PatchRequest:
+    type: object
+    required: true
+    properties:
+
+        path:
+          type: string
+          description: A JSON-Pointer
+        value:
+          type: string
+          description: The value to be used within the operations.
+
+
+tags:
+- name: Users
+  description: |
+    UsersController operations for Users
